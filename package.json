@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2",
     "@types/node": "20.6.3",
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
@@ -20,6 +21,7 @@
     "lucide-react": "^0.279.0",
     "next": "13.5.1",
     "next-intl": "3.0.0-beta.18",
+    "next-themes": "^0.2.1",
     "postcss": "8.4.30",
     "react": "18.2.0",
     "react-dom": "18.2.0",
