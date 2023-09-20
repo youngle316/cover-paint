@@ -1,8 +1,20 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
 
 export default function Home() {
   const t = useTranslations("Index");
-  return <div>{t("title")}</div>;
+  const { setTheme } = useTheme();
+  return (
+    <div className="text-blue-500 dark:text-red-500">
+      {t("title")}
+      <div>
+        <Button onClick={() => setTheme("system")}>System</Button>
+        <Button onClick={() => setTheme("dark")}>Dark</Button>
+        <Button onClick={() => setTheme("light")}>Light</Button>
+      </div>
+    </div>
+  );
 }
