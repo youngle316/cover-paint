@@ -1,12 +1,10 @@
 import React, { ReactNode } from "react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
-import "../../styles/globals.css";
-import { ThemeProvider } from "../components/providers/theme-provider";
-
-const inter = Inter({ subsets: ["latin"] });
+import "@/styles/globals.css";
+import { ThemeProvider } from "@/app/components/providers/ThemeProvider";
+import Header from "@/app/components/Header";
 
 type Props = {
   children: ReactNode;
@@ -14,8 +12,8 @@ type Props = {
 };
 
 export const metadata: Metadata = {
-  title: "Cover Image",
-  description: "Cover Image",
+  title: "Cover Paint",
+  description: "Cover Paint",
 };
 
 async function getMessages(locale: string) {
@@ -34,10 +32,16 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={inter.className}>
+      <body className="bg-slate-50 dark:bg-slate-950">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system">
-            {children}
+            <div className="absolute inset-x-0 top-0 z-0 h-[400px] bg-gradient-to-b from-violet-100 to-slate-50 dark:from-violet-900 dark:to-slate-950"></div>
+            <div className="relative mx-auto max-w-7xl px-5">
+              <header>
+                <Header />
+              </header>
+              {children}
+            </div>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
