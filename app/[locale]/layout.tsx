@@ -5,6 +5,9 @@ import { notFound } from "next/navigation";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/app/components/providers/ThemeProvider";
 import Header from "@/app/components/Header";
+import { Lexend } from "next/font/google";
+
+const lexend = Lexend({ subsets: ["latin"] });
 
 type Props = {
   children: ReactNode;
@@ -32,7 +35,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className="bg-slate-50 dark:bg-slate-950">
+      <body className={`${lexend.className} bg-slate-50 dark:bg-slate-950`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system">
             <div className="absolute inset-x-0 top-0 z-0 h-[400px] bg-gradient-to-b from-violet-100 to-slate-50 dark:from-violet-900 dark:to-slate-950"></div>
