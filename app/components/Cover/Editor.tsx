@@ -14,6 +14,7 @@ import {
   useBlogAbstractState,
   useBlogAuthorState,
   useBlogTitleState,
+  useCoverFontState,
   useCoverTypeState,
   useCoverUploadState,
   useGraphicTypeState,
@@ -28,6 +29,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import FontSelector from "@/app/components/FontSelector";
 
 function Editor() {
   const [data, setPhotosResponse] = useState<ApiResponse<Photos>>();
@@ -44,6 +46,7 @@ function Editor() {
   const { solidColor, setSolidColor } = useSolidColorState();
   const { graphicType, setGraphicType } = useGraphicTypeState();
   const { coverUpload, setCoverUpload } = useCoverUploadState();
+  const { coverFont } = useCoverFontState();
 
   const coverRef = useRef<HTMLDivElement>(null);
 
@@ -160,28 +163,30 @@ function Editor() {
                 </div>
               </div>
 
-              {/* title */}
-              <span className="absolute bottom-24 left-5 z-30 text-xl text-slate-50">
-                {blogTitle}
-              </span>
-              {/* abstract */}
-              <span className="absolute bottom-16 left-5 z-30 text-neutral-400">
-                {blogAbstract}
-              </span>
-              {/* author */}
-              <div
-                className={`absolute left-5 z-30 flex items-center gap-2 ${
-                  avatarImage ? "bottom-4" : "bottom-8"
-                }`}
-              >
-                {avatarImage && (
-                  <Avatar>
-                    <AvatarImage src={avatarImage} />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                )}
+              <div className={`text-neutral-400 ${coverFont}`}>
+                {/* title */}
+                <span className="absolute bottom-24 left-5 z-30 text-xl text-slate-50">
+                  {blogTitle}
+                </span>
+                {/* abstract */}
+                <span className="absolute bottom-16 left-5 z-30">
+                  {blogAbstract}
+                </span>
+                {/* author */}
+                <div
+                  className={`absolute left-5 z-30 flex items-center gap-2 ${
+                    avatarImage ? "bottom-4" : "bottom-8"
+                  }`}
+                >
+                  {avatarImage && (
+                    <Avatar>
+                      <AvatarImage src={avatarImage} />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                  )}
 
-                <span className="text-neutral-400">{blogAuthor}</span>
+                  <span>{blogAuthor}</span>
+                </div>
               </div>
             </div>
           ) : (
@@ -268,8 +273,12 @@ function Editor() {
           )}
         </div>
         {/* config */}
-        <div>
-          {coverType === "solid" && (
+        <div className="flex items-center justify-center gap-4">
+          {/* common config */}
+          {isEdit && <FontSelector />}
+
+          {/* solid color config*/}
+          {coverType === "solid" && isEdit && (
             <div>
               <Popover>
                 <PopoverTrigger>

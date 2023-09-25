@@ -15,6 +15,7 @@
     "avatar": "Avatar",
     "download": "Download",
     "upload": "Upload",
-    "uploadDes": "Images width than 1500 pixels and Aspect ratio of 16/9 work better"
+    "uploadDes": "Images width than 1500 pixels and Aspect ratio of 16/9 work better",
+    "font": "Font"
   }
 }
