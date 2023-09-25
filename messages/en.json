@@ -19,6 +19,8 @@
     "font": "Font",
     "system": "System",
     "dark": "Dark",
-    "light": "Light"
+    "light": "Light",
+    "chinese": "Chinese",
+    "english": "English"
   }
 }

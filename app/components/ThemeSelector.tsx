@@ -24,12 +24,11 @@ function ThemeSelector() {
   ];
 
   const { theme: curTheme, setTheme } = useTheme();
-  console.log("curTheme", curTheme);
 
   return (
     <div className="group relative">
       <button className="flex items-center">
-        <SunMoon className="h-8 w-8" />
+        <SunMoon className="h-5 w-5" />
       </button>
       <div
         className="absolute -right-2 z-10 -mt-1 hidden w-32 rounded-lg border border-gray-100

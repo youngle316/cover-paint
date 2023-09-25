@@ -19,6 +19,8 @@
     "font": "字体",
     "system": "跟随系统",
     "dark": "深色模式",
-    "light": "浅色模式"
+    "light": "浅色模式",
+    "chinese": "中文",
+    "english": "英文"
   }
 }

@@ -4,6 +4,7 @@ import Link from "next-intl/link";
 import Logo from "@/app/components/Logo";
 import { Button } from "@/components/ui/button";
 import ThemeSelector from "@/app/components/ThemeSelector";
+import LocaleSelector from "@/app/components/LocaleSelector";
 
 function Header() {
   return (
@@ -16,13 +17,14 @@ function Header() {
         CoverPaint
       </Link>
       <div className="flex items-center gap-6">
+        <LocaleSelector />
         <ThemeSelector />
         <Button asChild>
           <Link
             target="_blank"
             href="https://github.com/youngle316/power-chatgpt"
           >
-            ⭐ Star On GitHub
+            ⭐ Star on GitHub
           </Link>
         </Button>
       </div>
