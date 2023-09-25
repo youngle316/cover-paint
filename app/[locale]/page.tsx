@@ -3,7 +3,8 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
-import Slogan from "@/app/[locale]/Slogan";
+import Slogan from "../components/Slogan";
+import Cover from "@/app/components/Cover/Cover";
 
 export default function Home() {
   const t = useTranslations("Index");
@@ -12,6 +13,7 @@ export default function Home() {
     <>
       <main>
         <Slogan />
+        <Cover />
       </main>
       <div className="text-blue-500 dark:text-red-500">
         {t("title")}

@@ -3,6 +3,16 @@
     "title": "Hello world!"
   },
   "HomePage": {
-    "slogan": "Capture Attention Instantly with a Striking Cover Image, Gain more Exposure"
+    "slogan": "Capture Attention Instantly with a Striking Cover Image, Gain more Exposure",
+    "solidColor": "Solid Color",
+    "graphic": "Graphic",
+    "blogTitle": "Title",
+    "blogTitlePlaceholder": "Type title here",
+    "blogAuthor": "Author",
+    "blogAuthorPlaceholder": "Type author here",
+    "blogAbstract": "Abstract",
+    "blogAbstractPlaceholder": "Type abstract here",
+    "avatar": "Avatar",
+    "download": "Download"
   }
 }

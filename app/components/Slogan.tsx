@@ -6,10 +6,10 @@ function Slogan() {
   const t = useTranslations("HomePage");
 
   return (
-    <div className="mx-auto my-14 cursor-default md:my-28 select-none">
+    <div className="mx-auto my-14 cursor-default select-none md:my-28">
       <h1
-        className="mx-auto bg-gradient-to-br from-black to-stone-500 dark:from-white dark:to-stone-500
-            bg-clip-text pt-2 font-display text-4xl font-bold text-transparent drop-shadow-sm
+        className="font-display mx-auto bg-gradient-to-br from-black to-stone-500 bg-clip-text
+            pt-2 text-4xl font-bold text-transparent drop-shadow-sm dark:from-white dark:to-stone-500
             md:text-center md:text-5xl xl:text-6xl 2xl:text-7xl"
       >
         <div className="hidden md:block">
