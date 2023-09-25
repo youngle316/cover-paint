@@ -15,6 +15,8 @@ import {
   useBlogAuthorState,
   useBlogTitleState,
   useCoverTypeState,
+  useCoverUploadState,
+  useGraphicTypeState,
   useIsEditState,
   useSolidColorState,
 } from "@/store/HomePage";
@@ -25,6 +27,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 function Editor() {
   const [data, setPhotosResponse] = useState<ApiResponse<Photos>>();
@@ -39,6 +42,8 @@ function Editor() {
   const { coverType } = useCoverTypeState();
   const { isEdit, setIsEdit } = useIsEditState();
   const { solidColor, setSolidColor } = useSolidColorState();
+  const { graphicType, setGraphicType } = useGraphicTypeState();
+  const { coverUpload, setCoverUpload } = useCoverUploadState();
 
   const coverRef = useRef<HTMLDivElement>(null);
 
@@ -91,6 +96,21 @@ function Editor() {
       });
   };
 
+  const changeCoverUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const files = e.target.files as FileList;
+    const reader = new FileReader();
+    reader.onload = () => {
+      setCoverUpload(reader.result as string);
+    };
+    reader.readAsDataURL(files[0]);
+    setIsEdit(true);
+  };
+
+  const closeEditCover = () => {
+    setIsEdit(false);
+  };
+
   return (
     <div className="mx-auto flex h-full max-h-[485px] w-[18rem] max-w-2xl flex-col rounded-sm border p-2 md:w-[40rem]">
       <div
@@ -116,13 +136,17 @@ function Editor() {
                       <img
                         className="absolute mx-auto h-full w-full object-cover object-center"
                         alt="cover"
-                        src={editingCover}
+                        src={
+                          graphicType === "unsplash"
+                            ? editingCover
+                            : coverUpload
+                        }
                       />
                       {/* close button*/}
                       <div
                         className="absolute right-4 top-4 z-30 hidden h-8 w-8 cursor-pointer items-center justify-center rounded-full border-slate-100
             bg-white shadow group-hover:flex"
-                        onClick={() => setIsEdit(false)}
+                        onClick={closeEditCover}
                       >
                         <X className="absolute h-6 w-6 text-black" />
                       </div>
@@ -162,52 +186,84 @@ function Editor() {
             </div>
           ) : (
             <>
-              <div className="mb-2 mt-2 pb-2 pt-2">
-                <div className="mx-3">
-                  <Input
-                    value={searchVal}
-                    onChange={searchValChange}
-                    placeholder="Search for an image..."
-                  />
-                </div>
-              </div>
-              {isLoading && (
-                <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-white/50 dark:bg-black/50">
-                  <RotateCw className="h-6 w-6 animate-spin" />
-                </div>
-              )}
-              <div className="flex min-h-[400px] flex-wrap content-start bg-white px-3 dark:bg-black">
-                {data?.response?.results.map((photo) => {
-                  const { urls, user } = photo;
-                  return (
-                    <div
-                      className="w-[50%] p-1 md:w-[25%]"
-                      key={photo.id}
-                      onClick={() => editCover(urls.regular)}
-                    >
-                      <div className="cursor-pointer select-none">
-                        <div className="h-full w-full">
-                          <img
-                            className="block h-16 w-full rounded object-cover object-center"
-                            src={urls.regular}
-                            alt={user.name}
-                          />
-                        </div>
-                      </div>
-                      <div className="mb-1 mt-[2px] truncate text-xs leading-4 text-neutral-500">
-                        by{" "}
-                        <a
-                          className="inline cursor-pointer select-none text-inherit underline"
-                          target="_blank"
-                          href={`https://unsplash.com/@${user.username}`}
-                        >
-                          {user.name}
-                        </a>
+              <Tabs defaultValue="unsplash" value={graphicType}>
+                <TabsList>
+                  <TabsTrigger
+                    onClick={() => setGraphicType("upload")}
+                    value="upload"
+                  >
+                    {t("upload")}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    onClick={() => setGraphicType("unsplash")}
+                    value="unsplash"
+                  >
+                    Unsplash
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="upload">
+                  <div className="flex flex-col gap-2">
+                    <Input
+                      id="uploadCover"
+                      type="file"
+                      onChange={changeCoverUpload}
+                    />
+                    <div className="flex justify-center text-sm text-neutral-400">
+                      {t("uploadDes")}
+                    </div>
+                  </div>
+                </TabsContent>
+                <TabsContent value="unsplash">
+                  <>
+                    <div className="mb-2 mt-2 pb-2 pt-2">
+                      <div className="mx-3">
+                        <Input
+                          value={searchVal}
+                          onChange={searchValChange}
+                          placeholder="Search for an image..."
+                        />
                       </div>
                     </div>
-                  );
-                })}
-              </div>
+                    {isLoading && (
+                      <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-white/50 dark:bg-black/50">
+                        <RotateCw className="h-6 w-6 animate-spin" />
+                      </div>
+                    )}
+                    <div className="flex min-h-[400px] flex-wrap content-start bg-white px-3 dark:bg-black">
+                      {data?.response?.results.map((photo) => {
+                        const { urls, user } = photo;
+                        return (
+                          <div
+                            className="w-[50%] p-1 md:w-[25%]"
+                            key={photo.id}
+                            onClick={() => editCover(urls.regular)}
+                          >
+                            <div className="cursor-pointer select-none">
+                              <div className="h-full w-full">
+                                <img
+                                  className="block h-16 w-full rounded object-cover object-center"
+                                  src={urls.regular}
+                                  alt={user.name}
+                                />
+                              </div>
+                            </div>
+                            <div className="mb-1 mt-[2px] truncate text-xs leading-4 text-neutral-500">
+                              by{" "}
+                              <a
+                                className="inline cursor-pointer select-none text-inherit underline"
+                                target="_blank"
+                                href={`https://unsplash.com/@${user.username}`}
+                              >
+                                {user.name}
+                              </a>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                </TabsContent>
+              </Tabs>
             </>
           )}
         </div>
@@ -237,9 +293,11 @@ function Editor() {
             </div>
           )}
         </div>
-        <div className="mt-4 flex justify-center">
-          <Button onClick={downloadCover}>{t("download")}</Button>
-        </div>
+        {isEdit && (
+          <div className="mt-4 flex justify-center">
+            <Button onClick={downloadCover}>{t("download")}</Button>
+          </div>
+        )}
       </div>
     </div>
   );

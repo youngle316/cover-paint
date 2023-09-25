@@ -13,6 +13,8 @@
     "blogAbstract": "摘要",
     "blogAbstractPlaceholder": "请输入摘要",
     "avatar": "头像",
-    "download": "下载"
+    "download": "下载",
+    "upload": "上传",
+    "uploadDes": "图片宽度大于 1500 像素，宽高比为 16/9 效果更好"
   }
 }

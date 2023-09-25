@@ -35,6 +35,16 @@ type SolidColor = {
   setSolidColor: (val: string) => void;
 };
 
+type GraphicType = {
+  graphicType: string;
+  setGraphicType: (val: string) => void;
+};
+
+type CoverUpload = {
+  coverUpload: string | undefined;
+  setCoverUpload: (val: string | undefined) => void;
+};
+
 const useCoverTypeState = create<CoverType>()((set) => ({
   coverType: "graphic",
   setCoverType: (val: string) => set(() => ({ coverType: val })),
@@ -71,6 +81,17 @@ const useSolidColorState = create<SolidColor>()((set) => ({
   setSolidColor: (val: string) => set(() => ({ solidColor: val })),
 }));
 
+const useGraphicTypeState = create<GraphicType>()((set) => ({
+  graphicType: "unsplash",
+  setGraphicType: (val: string) => set(() => ({ graphicType: val })),
+}));
+
+const useCoverUploadState = create<CoverUpload>()((set) => ({
+  coverUpload: undefined,
+  setCoverUpload: (val: string | undefined) =>
+    set(() => ({ coverUpload: val })),
+}));
+
 export {
   useCoverTypeState,
   useBlogTitleState,
@@ -79,4 +100,6 @@ export {
   useAvatarImageState,
   useIsEditState,
   useSolidColorState,
+  useGraphicTypeState,
+  useCoverUploadState,
 };
