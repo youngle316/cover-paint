@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next-intl/link";
 import Logo from "@/app/components/Logo";
 import { Button } from "@/components/ui/button";
+import ThemeSelector from "@/app/components/ThemeSelector";
 
 function Header() {
   return (
@@ -12,7 +15,8 @@ function Header() {
         <Logo />
         CoverPaint
       </Link>
-      <div>
+      <div className="flex items-center gap-6">
+        <ThemeSelector />
         <Button asChild>
           <Link
             target="_blank"
