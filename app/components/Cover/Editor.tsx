@@ -2,6 +2,8 @@ import { ChangeEvent, useEffect, useState, useRef } from "react";
 import { RotateCw, X } from "lucide-react";
 import { toPng } from "html-to-image";
 import { useTranslations } from "next-intl";
+import Chrome from "@uiw/react-color-chrome";
+import { Palette } from "lucide-react";
 import getPhotos from "@/api/getPhotos";
 import { Input } from "@/components/ui/input";
 import { ApiResponse } from "unsplash-js/src/helpers/response";
@@ -12,21 +14,31 @@ import {
   useBlogAbstractState,
   useBlogAuthorState,
   useBlogTitleState,
+  useCoverTypeState,
+  useIsEditState,
+  useSolidColorState,
 } from "@/store/HomePage";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 function Editor() {
   const [data, setPhotosResponse] = useState<ApiResponse<Photos>>();
   const [searchVal, setSearchVal] = useState("dev");
   const [isLoading, setIsLoading] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
   const [editingCover, setEditingCover] = useState("");
 
   const { blogTitle } = useBlogTitleState();
   const { blogAuthor } = useBlogAuthorState();
   const { blogAbstract } = useBlogAbstractState();
   const { avatarImage } = useAvatarImageState();
+  const { coverType } = useCoverTypeState();
+  const { isEdit, setIsEdit } = useIsEditState();
+  const { solidColor, setSolidColor } = useSolidColorState();
 
   const coverRef = useRef<HTMLDivElement>(null);
 
@@ -93,22 +105,34 @@ function Editor() {
               ref={coverRef}
             >
               {/* shadow */}
-              <div className="absolute z-20 mx-auto h-full w-full bg-gradient-to-b from-gray-50/10 to-gray-950/90" />
+              {coverType === "graphic" && (
+                <div className="absolute z-20 mx-auto h-full w-full bg-gradient-to-b from-gray-50/10 to-gray-950/90" />
+              )}
+
               <div className="inline-flex h-full w-full justify-center overflow-hidden">
                 <div className="relative inline-flex h-full w-full justify-center">
-                  <img
-                    className="absolute mx-auto h-full w-full object-cover object-center"
-                    alt="cover"
-                    src={editingCover}
-                  />
-                </div>
-                {/* close button*/}
-                <div
-                  className="absolute right-4 top-4 z-30 hidden h-8 w-8 cursor-pointer items-center justify-center rounded-full border-slate-100
+                  {coverType === "graphic" ? (
+                    <>
+                      <img
+                        className="absolute mx-auto h-full w-full object-cover object-center"
+                        alt="cover"
+                        src={editingCover}
+                      />
+                      {/* close button*/}
+                      <div
+                        className="absolute right-4 top-4 z-30 hidden h-8 w-8 cursor-pointer items-center justify-center rounded-full border-slate-100
             bg-white shadow group-hover:flex"
-                  onClick={() => setIsEdit(false)}
-                >
-                  <X className="absolute h-6 w-6 text-black" />
+                        onClick={() => setIsEdit(false)}
+                      >
+                        <X className="absolute h-6 w-6 text-black" />
+                      </div>
+                    </>
+                  ) : (
+                    <div
+                      className="absolute mx-auto h-full w-full"
+                      style={{ backgroundColor: solidColor }}
+                    />
+                  )}
                 </div>
               </div>
 
@@ -185,6 +209,32 @@ function Editor() {
                 })}
               </div>
             </>
+          )}
+        </div>
+        {/* config */}
+        <div>
+          {coverType === "solid" && (
+            <div>
+              <Popover>
+                <PopoverTrigger>
+                  <Button variant="outline" className="flex gap-2">
+                    <Palette
+                      className="h-4 w-4"
+                      style={{ color: solidColor }}
+                    />
+                    {solidColor}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <Chrome
+                    color={solidColor}
+                    onChange={(color) => {
+                      setSolidColor(color.hexa);
+                    }}
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
           )}
         </div>
         <div className="mt-4 flex justify-center">

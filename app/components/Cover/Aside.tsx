@@ -11,6 +11,7 @@ import {
   useBlogAuthorState,
   useBlogTitleState,
   useCoverTypeState,
+  useIsEditState,
 } from "@/store/HomePage";
 
 const CoverTypeButton = [
@@ -26,6 +27,7 @@ function Aside() {
   const { blogAuthor, setBlogAuthor } = useBlogAuthorState();
   const { blogAbstract, setBlogAbstract } = useBlogAbstractState();
   const { setAvatarImage } = useAvatarImageState();
+  const { setIsEdit } = useIsEditState();
 
   const avatarUpload = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -43,6 +45,16 @@ function Aside() {
     avatarImageId.value = "";
   };
 
+  const changeCoverType = (type: string) => {
+    setCoverType(type);
+    if (type === "solid" && coverType === "graphic") {
+      setIsEdit(true);
+    }
+    if (type === "graphic" && coverType === "solid") {
+      setIsEdit(false);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -53,7 +65,7 @@ function Aside() {
                 <Button
                   key={item.key}
                   variant={item.key === coverType ? "default" : "outline"}
-                  onClick={() => setCoverType(item.key)}
+                  onClick={() => changeCoverType(item.key)}
                 >
                   {t(item.label)}
                 </Button>

@@ -25,6 +25,16 @@ type AvatarImage = {
   setAvatarImage: (val: string | undefined) => void;
 };
 
+type IsEdit = {
+  isEdit: boolean;
+  setIsEdit: (val: boolean) => void;
+};
+
+type SolidColor = {
+  solidColor: string;
+  setSolidColor: (val: string) => void;
+};
+
 const useCoverTypeState = create<CoverType>()((set) => ({
   coverType: "graphic",
   setCoverType: (val: string) => set(() => ({ coverType: val })),
@@ -51,10 +61,22 @@ const useAvatarImageState = create<AvatarImage>()((set) => ({
     set(() => ({ avatarImage: val })),
 }));
 
+const useIsEditState = create<IsEdit>()((set) => ({
+  isEdit: false,
+  setIsEdit: (val: boolean) => set(() => ({ isEdit: val })),
+}));
+
+const useSolidColorState = create<SolidColor>()((set) => ({
+  solidColor: "#6c1e1e",
+  setSolidColor: (val: string) => set(() => ({ solidColor: val })),
+}));
+
 export {
   useCoverTypeState,
   useBlogTitleState,
   useBlogAuthorState,
   useBlogAbstractState,
   useAvatarImageState,
+  useIsEditState,
+  useSolidColorState,
 };
