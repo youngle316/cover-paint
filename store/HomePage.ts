@@ -87,7 +87,7 @@ const useIsEditState = create<IsEdit>()((set) => ({
 }));
 
 const useSolidColorState = create<SolidColor>()((set) => ({
-  solidColor: "#6c1e1e",
+  solidColor: "#3b82f6",
   setSolidColor: (val: string) => set(() => ({ solidColor: val })),
 }));
 

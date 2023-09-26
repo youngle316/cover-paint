@@ -118,7 +118,7 @@ function Editor() {
   };
 
   return (
-    <div className="mx-auto flex h-full max-h-[485px] w-[18rem] max-w-2xl flex-col rounded-sm border p-2 md:w-[40rem]">
+    <div className="mx-auto flex h-full max-h-[485px] max-w-2xl flex-col rounded-sm border p-2 md:w-[40rem]">
       <div
         className={`relative z-10 mb-0 mr-0 min-h-0 grow overflow-y-auto overflow-x-hidden ${
           isEdit ? "" : ""
@@ -150,7 +150,7 @@ function Editor() {
                       />
                       {/* close button*/}
                       <div
-                        className="absolute right-4 top-4 z-30 hidden h-8 w-8 cursor-pointer items-center justify-center rounded-full border-slate-100
+                        className="absolute right-4 top-4 z-40 hidden h-8 w-8 cursor-pointer items-center justify-center rounded-full border-slate-100
             bg-white shadow group-hover:flex"
                         onClick={closeEditCover}
                       >
@@ -166,35 +166,42 @@ function Editor() {
                 </div>
               </div>
 
-              <div className={`text-neutral-400 ${coverFont}`}>
-                {/* title */}
-                <span className="absolute bottom-24 left-5 z-30 text-xl text-slate-50">
-                  {blogTitle}
-                </span>
-                {/* abstract */}
-                <span className="absolute bottom-16 left-5 z-30">
-                  {blogAbstract}
-                </span>
-                {/* author */}
-                <div
-                  className={`absolute left-5 z-30 flex items-center gap-2 ${
-                    avatarImage ? "bottom-4" : "bottom-8"
-                  }`}
-                >
-                  {avatarImage && (
-                    <Avatar>
-                      <AvatarImage src={avatarImage} />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
+              <div
+                className={`absolute left-0 top-0 z-30 h-full w-full text-neutral-400 ${coverFont}`}
+              >
+                <div className="flex h-full w-full flex-col-reverse gap-1 p-1 md:gap-2 md:p-2">
+                  {/* author */}
+                  {(blogAuthor || avatarImage) && (
+                    <div className="flex items-center gap-1 text-xs md:gap-2 md:text-lg">
+                      {avatarImage && (
+                        <Avatar className="h-5 w-5 md:h-10 md:w-10">
+                          <AvatarImage src={avatarImage} />
+                          <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                      )}
+                      <span>{blogAuthor}</span>
+                    </div>
                   )}
-                  <span>{blogAuthor}</span>
+
+                  {/* abstract */}
+                  {blogAbstract && (
+                    <div className="text-xs md:text-lg">{blogAbstract}</div>
+                  )}
+
+                  {/* title */}
+                  {blogTitle && (
+                    <div className="text-sm text-slate-50 md:text-xl">
+                      {blogTitle}
+                    </div>
+                  )}
+
+                  {/* username */}
+                  {coverInfo && (
+                    <div className="absolute bottom-2 right-2 z-30 hidden text-xs text-neutral-400/60 group-hover:flex">
+                      by {coverInfo}
+                    </div>
+                  )}
                 </div>
-                {/* username */}
-                {coverInfo && (
-                  <div className="absolute bottom-2 right-2 z-30 hidden text-xs text-neutral-400/60 group-hover:flex">
-                    by {coverInfo}
-                  </div>
-                )}
               </div>
             </div>
           ) : (
