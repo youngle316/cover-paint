@@ -61,17 +61,18 @@ const useCoverTypeState = create<CoverType>()((set) => ({
 }));
 
 const useBlogTitleState = create<BlogTitle>()((set) => ({
-  blogTitle: "",
+  blogTitle: "How to build a website with Next.js and Tailwind CSS",
   setBlogTitle: (val: string) => set(() => ({ blogTitle: val })),
 }));
 
 const useBlogAbstractState = create<BlogAbstract>()((set) => ({
-  blogAbstract: "",
+  blogAbstract:
+    "A tutorial on creating a website using Next.js framework and styling it with Tailwind CSS.",
   setBlogAbstract: (val: string) => set(() => ({ blogAbstract: val })),
 }));
 
 const useBlogAuthorState = create<BlogAuthor>()((set) => ({
-  blogAuthor: "",
+  blogAuthor: "xiaole - Sep 26",
   setBlogAuthor: (val: string) => set(() => ({ blogAuthor: val })),
 }));
 
