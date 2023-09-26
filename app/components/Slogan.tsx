@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Balancer from "react-wrap-balancer";
 
 function Slogan() {
   const t = useTranslations("HomePage");
@@ -28,7 +29,7 @@ function Slogan() {
         </span>
       </h1>
       <p className="mt-4 text-left text-lg text-slate-400 md:text-center">
-        {t("slogan")}
+        <Balancer>{t("slogan")}</Balancer>
       </p>
     </div>
   );

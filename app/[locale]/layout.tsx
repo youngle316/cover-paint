@@ -6,6 +6,7 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "@/app/components/providers/ThemeProvider";
 import Header from "@/app/components/Header";
 import { Lexend } from "next/font/google";
+import Footer from "@/app/components/Footer";
 
 const lexend = Lexend({ subsets: ["latin"] });
 
@@ -44,6 +45,7 @@ export default async function RootLayout({
                 <Header />
               </header>
               {children}
+              <Footer />
             </div>
           </ThemeProvider>
         </NextIntlClientProvider>

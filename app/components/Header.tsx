@@ -16,15 +16,23 @@ function Header() {
         <Logo />
         CoverPaint
       </Link>
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-3 md:gap-6">
         <LocaleSelector />
         <ThemeSelector />
-        <Button asChild>
+        <Button asChild className="hidden md:flex">
           <Link
             target="_blank"
             href="https://github.com/youngle316/power-chatgpt"
           >
             ⭐ Star on GitHub
+          </Link>
+        </Button>
+        <Button asChild className="flex md:hidden">
+          <Link
+            target="_blank"
+            href="https://github.com/youngle316/power-chatgpt"
+          >
+            ⭐
           </Link>
         </Button>
       </div>
