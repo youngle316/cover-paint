@@ -15,6 +15,7 @@ import {
   useBlogAuthorState,
   useBlogTitleState,
   useCoverFontState,
+  useCoverInfoState,
   useCoverTypeState,
   useCoverUploadState,
   useGraphicTypeState,
@@ -47,6 +48,7 @@ function Editor() {
   const { graphicType, setGraphicType } = useGraphicTypeState();
   const { coverUpload, setCoverUpload } = useCoverUploadState();
   const { coverFont } = useCoverFontState();
+  const { coverInfo, setCoverInfo } = useCoverInfoState();
 
   const coverRef = useRef<HTMLDivElement>(null);
 
@@ -76,9 +78,10 @@ function Editor() {
     setSearchVal(e.target.value);
   };
 
-  const editCover = (urls: string) => {
+  const editCover = (urls: string, username: string) => {
     setEditingCover(urls);
     setIsEdit(true);
+    setCoverInfo(username);
   };
 
   const downloadCover = () => {
@@ -184,9 +187,14 @@ function Editor() {
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                   )}
-
                   <span>{blogAuthor}</span>
                 </div>
+                {/* username */}
+                {coverInfo && (
+                  <div className="absolute bottom-2 right-2 z-30 hidden text-xs text-neutral-400/60 group-hover:flex">
+                    by {coverInfo}
+                  </div>
+                )}
               </div>
             </div>
           ) : (
@@ -241,7 +249,7 @@ function Editor() {
                           <div
                             className="w-[50%] p-1 md:w-[25%]"
                             key={photo.id}
-                            onClick={() => editCover(urls.regular)}
+                            onClick={() => editCover(urls.regular, user.name)}
                           >
                             <div className="cursor-pointer select-none">
                               <div className="h-full w-full">

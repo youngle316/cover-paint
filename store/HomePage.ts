@@ -50,6 +50,11 @@ type CoverFont = {
   setCoverFont: (val: string) => void;
 };
 
+type CoverInfo = {
+  coverInfo: string;
+  setCoverInfo: (val: string) => void;
+};
+
 const useCoverTypeState = create<CoverType>()((set) => ({
   coverType: "graphic",
   setCoverType: (val: string) => set(() => ({ coverType: val })),
@@ -102,6 +107,11 @@ const useCoverFontState = create<CoverFont>()((set) => ({
   setCoverFont: (val: string) => set(() => ({ coverFont: val })),
 }));
 
+const useCoverInfoState = create<CoverInfo>()((set) => ({
+  coverInfo: "",
+  setCoverInfo: (val: string) => set(() => ({ coverInfo: val })),
+}));
+
 export {
   useCoverTypeState,
   useBlogTitleState,
@@ -113,4 +123,5 @@ export {
   useGraphicTypeState,
   useCoverUploadState,
   useCoverFontState,
+  useCoverInfoState,
 };
