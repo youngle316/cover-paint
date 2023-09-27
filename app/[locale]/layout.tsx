@@ -16,7 +16,7 @@ type Props = {
 };
 
 const ogImage =
-  "https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230927181041.png";
+  "https://tohvlvtcdfndxfxeeeaa.supabase.co/storage/v1/object/public/my-website/assets/cover.png";
 
 export const metadata: Metadata = {
   title: "Cover Paint",
