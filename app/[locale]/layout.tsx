@@ -15,9 +15,52 @@ type Props = {
   params: { locale: string };
 };
 
+const ogImage =
+  "https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230927181041.png";
+
 export const metadata: Metadata = {
   title: "Cover Paint",
-  description: "Cover Paint",
+  description: "Cover Paint - Create Cover Image in Seconds - It's Super Easy",
+  authors: [{ url: "https://xiaole.site", name: "xiaole" }],
+  keywords: "cover, paint, image, create, easy, super, seconds, xiaole",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    title: {
+      default: "Cover Paint",
+      template: "%s | xiaole",
+    },
+    description:
+      "Cover Paint - Create Cover Image in Seconds - It's Super Easy",
+    siteName: "Cover Paint",
+    locale: "zh_CN",
+    type: "website",
+    url: "https://coverpaint.xiaole.site",
+    images: [
+      {
+        url: ogImage,
+        width: 1920,
+        height: 1440,
+      },
+    ],
+  },
+  twitter: {
+    site: "https://twitter.com/youngle316",
+    card: "summary_large_image",
+    title: "Cover Paint - xiaole",
+    description:
+      "Cover Paint | Create Cover Image in Seconds - It's Super Easy",
+    images: [ogImage],
+  },
 };
 
 async function getMessages(locale: string) {

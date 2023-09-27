@@ -22,7 +22,7 @@ function Header() {
         <Button asChild className="hidden md:flex">
           <Link
             target="_blank"
-            href="https://github.com/youngle316/power-chatgpt"
+            href="https://github.com/youngle316/cover-paint"
           >
             ⭐ Star on GitHub
           </Link>
@@ -30,7 +30,7 @@ function Header() {
         <Button asChild className="flex md:hidden">
           <Link
             target="_blank"
-            href="https://github.com/youngle316/power-chatgpt"
+            href="https://github.com/youngle316/cover-paint"
           >
             ⭐
           </Link>
