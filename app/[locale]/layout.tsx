@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
+import { Analytics } from "@vercel/analytics/react";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/app/components/providers/ThemeProvider";
 import Header from "@/app/components/Header";
@@ -80,6 +81,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={`${lexend.className} bg-slate-50 dark:bg-slate-950`}>
+        <Analytics />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system">
             <div className="absolute inset-x-0 top-0 z-0 h-[400px] bg-gradient-to-b from-violet-100 to-slate-50 dark:from-violet-900 dark:to-slate-950"></div>
