@@ -4,7 +4,7 @@ import { toPng } from "html-to-image";
 import { useTranslations } from "next-intl";
 import Chrome from "@uiw/react-color-chrome";
 import { Palette } from "lucide-react";
-import getPhotos from "@/api/getPhotos";
+import { getPhotos, trackDownload } from "@/api/unsplash";
 import { Input } from "@/components/ui/input";
 import { ApiResponse } from "unsplash-js/src/helpers/response";
 import { Photos } from "unsplash-js/src/methods/search/types/response";
@@ -15,12 +15,12 @@ import {
   useBlogAuthorState,
   useBlogTitleState,
   useCoverFontState,
-  useCoverInfoState,
   useCoverTypeState,
   useCoverUploadState,
   useGraphicTypeState,
   useIsEditState,
   useSolidColorState,
+  useUnsplashInfoState,
 } from "@/store/HomePage";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -32,11 +32,16 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FontSelector from "@/app/components/FontSelector";
 
+type UnsplashPhoto = {
+  urls: { regular: string };
+  user: { name: string; username: string };
+  links: { download_location: string };
+};
+
 function Editor() {
   const [data, setPhotosResponse] = useState<ApiResponse<Photos>>();
   const [searchVal, setSearchVal] = useState("dev");
   const [isLoading, setIsLoading] = useState(false);
-  const [editingCover, setEditingCover] = useState("");
 
   const { blogTitle } = useBlogTitleState();
   const { blogAuthor } = useBlogAuthorState();
@@ -48,7 +53,7 @@ function Editor() {
   const { graphicType, setGraphicType } = useGraphicTypeState();
   const { coverUpload, setCoverUpload } = useCoverUploadState();
   const { coverFont } = useCoverFontState();
-  const { coverInfo, setCoverInfo } = useCoverInfoState();
+  const { unsplashInfo, setUnsplashInfo } = useUnsplashInfoState();
 
   const coverRef = useRef<HTMLDivElement>(null);
 
@@ -78,13 +83,17 @@ function Editor() {
     setSearchVal(e.target.value);
   };
 
-  const editCover = (urls: string, username: string) => {
-    setEditingCover(urls);
+  const editCover = (photo: UnsplashPhoto) => {
+    const { urls, user, links } = photo;
+    setUnsplashInfo({
+      url: urls.regular,
+      username: user.username,
+      downloadLocation: links.download_location,
+    });
     setIsEdit(true);
-    setCoverInfo(username);
   };
 
-  const downloadCover = () => {
+  const downloadCover = async () => {
     const ref = coverRef?.current as HTMLDivElement;
     if (ref === null) {
       return;
@@ -100,6 +109,10 @@ function Editor() {
       .catch((err) => {
         console.log(err);
       });
+
+    if (unsplashInfo) {
+      await trackDownload(unsplashInfo.downloadLocation);
+    }
   };
 
   const changeCoverUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -144,7 +157,7 @@ function Editor() {
                         alt="cover"
                         src={
                           graphicType === "unsplash"
-                            ? editingCover
+                            ? unsplashInfo?.url
                             : coverUpload
                         }
                       />
@@ -196,9 +209,9 @@ function Editor() {
                   )}
 
                   {/* username */}
-                  {coverInfo && (
+                  {unsplashInfo && (
                     <div className="absolute bottom-2 right-2 z-30 hidden text-xs text-neutral-400/60 group-hover:flex">
-                      by {coverInfo}
+                      by {unsplashInfo.username}
                     </div>
                   )}
                 </div>
@@ -256,7 +269,7 @@ function Editor() {
                           <div
                             className="w-[50%] p-1 md:w-[25%]"
                             key={photo.id}
-                            onClick={() => editCover(urls.regular, user.name)}
+                            onClick={() => editCover(photo)}
                           >
                             <div className="cursor-pointer select-none">
                               <div className="h-full w-full">
@@ -272,7 +285,7 @@ function Editor() {
                               <a
                                 className="inline cursor-pointer select-none text-inherit underline"
                                 target="_blank"
-                                href={`https://unsplash.com/@${user.username}`}
+                                href={`https://unsplash.com/@${user.username}?utm_source=cover-paint&utm_medium=referral`}
                               >
                                 {user.name}
                               </a>

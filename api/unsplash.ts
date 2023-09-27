@@ -9,4 +9,10 @@ const getPhotos = async (query: string) => {
   });
 };
 
-export default getPhotos;
+const trackDownload = async (downloadLocation: string) => {
+  return await unsplashApi.photos.trackDownload({
+    downloadLocation,
+  });
+};
+
+export { getPhotos, trackDownload };

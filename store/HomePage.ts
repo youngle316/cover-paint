@@ -50,9 +50,14 @@ type CoverFont = {
   setCoverFont: (val: string) => void;
 };
 
-type CoverInfo = {
-  coverInfo: string;
-  setCoverInfo: (val: string) => void;
+type UnsplashItemInfo = {
+  url: string;
+  username: string;
+  downloadLocation: string;
+};
+type UnsplashInfo = {
+  unsplashInfo: UnsplashItemInfo | null;
+  setUnsplashInfo: (val: UnsplashItemInfo | null) => void;
 };
 
 const useCoverTypeState = create<CoverType>()((set) => ({
@@ -108,9 +113,10 @@ const useCoverFontState = create<CoverFont>()((set) => ({
   setCoverFont: (val: string) => set(() => ({ coverFont: val })),
 }));
 
-const useCoverInfoState = create<CoverInfo>()((set) => ({
-  coverInfo: "",
-  setCoverInfo: (val: string) => set(() => ({ coverInfo: val })),
+const useUnsplashInfoState = create<UnsplashInfo>()((set) => ({
+  unsplashInfo: null,
+  setUnsplashInfo: (val: null | UnsplashItemInfo) =>
+    set(() => ({ unsplashInfo: val })),
 }));
 
 export {
@@ -124,5 +130,5 @@ export {
   useGraphicTypeState,
   useCoverUploadState,
   useCoverFontState,
-  useCoverInfoState,
+  useUnsplashInfoState,
 };
