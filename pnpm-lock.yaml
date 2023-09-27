@@ -43,6 +43,9 @@ dependencies:
   '@uiw/react-color-chrome':
     specifier: ^1.4.2
     version: 1.4.2(@babel/runtime@7.22.15)(react-dom@18.2.0)(react@18.2.0)
+  '@vercel/analytics':
+    specifier: ^1.0.2
+    version: 1.0.2
   autoprefixer:
     specifier: 10.4.15
     version: 10.4.15(postcss@8.4.30)
@@ -1602,6 +1605,10 @@ packages:
       '@babel/runtime': 7.22.15
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@vercel/analytics@1.0.2:
+    resolution: {integrity: sha512-BZFxVrv24VbNNl5xMxqUojQIegEeXMI6rX3rg1uVLYUEXsuKNBSAEQf4BWEcjQDp/8aYJOj6m8V4PUA3x/cxgg==}
     dev: false
 
   /JSONStream@1.3.5:
