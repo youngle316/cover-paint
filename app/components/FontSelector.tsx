@@ -1,4 +1,4 @@
-import { Roboto, Lexend, Croissant_One } from "next/font/google";
+import { Lexend, Croissant_One, Inter, Nunito } from "next/font/google";
 import {
   Select,
   SelectContent,
@@ -11,13 +11,15 @@ import { useCoverFontState } from "@/store/HomePage";
 import { useState } from "react";
 
 const lexend = Lexend({ subsets: ["latin"] });
-const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 const croissantOne = Croissant_One({ weight: "400", subsets: ["latin"] });
+const inter = Inter({ weight: "400", subsets: ["latin"] });
+const nunito = Nunito({ weight: "400", subsets: ["latin"] });
 
 const fontList = [
   { label: "Lexend", key: lexend.className },
-  { label: "Roboto", key: roboto.className },
   { label: "Croissant One", key: croissantOne.className },
+  { label: "Inter", key: inter.className },
+  { label: "Nunito", key: nunito.className },
 ];
 
 function FontSelector() {
