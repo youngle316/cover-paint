@@ -3,7 +3,7 @@ import { RotateCw, X } from "lucide-react";
 import { toPng } from "html-to-image";
 import { useTranslations } from "next-intl";
 import Chrome from "@uiw/react-color-chrome";
-import { Palette } from "lucide-react";
+import { Palette, Loader2, ArrowDownToLine } from "lucide-react";
 import { getPhotos, trackDownload } from "@/api/unsplash";
 import { Input } from "@/components/ui/input";
 import { ApiResponse } from "unsplash-js/src/helpers/response";
@@ -42,6 +42,7 @@ function Editor() {
   const [data, setPhotosResponse] = useState<ApiResponse<Photos>>();
   const [searchVal, setSearchVal] = useState("dev");
   const [isLoading, setIsLoading] = useState(false);
+  const [downloading, setDownloading] = useState(false);
 
   const { blogTitle } = useBlogTitleState();
   const { blogAuthor } = useBlogAuthorState();
@@ -98,6 +99,7 @@ function Editor() {
     if (ref === null) {
       return;
     }
+    setDownloading(true);
 
     toPng(ref, { cacheBust: true })
       .then((dataUrl) => {
@@ -108,6 +110,9 @@ function Editor() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setDownloading(false);
       });
 
     if (unsplashInfo) {
@@ -332,7 +337,18 @@ function Editor() {
         </div>
         {isEdit && (
           <div className="mt-4 flex justify-center">
-            <Button onClick={downloadCover}>{t("download")}</Button>
+            <Button
+              disabled={downloading}
+              onClick={downloadCover}
+              className="flex gap-1"
+            >
+              {downloading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <ArrowDownToLine className="h-4 w-4" />
+              )}
+              {t("download")}
+            </Button>
           </div>
         )}
       </div>
