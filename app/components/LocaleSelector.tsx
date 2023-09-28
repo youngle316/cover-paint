@@ -34,7 +34,7 @@ function LocaleSelector() {
         <Languages className="h-5 w-5 md:h-7 md:w-7" />
       </button>
       <div
-        className="absolute -right-2 z-10 -mt-1 hidden w-32 rounded-lg border border-gray-100
+        className="absolute -right-2 z-10 mt-1 hidden w-32 rounded-lg border border-gray-100
       bg-white text-left text-sm shadow-lg group-hover:block dark:bg-black"
       >
         <div className="p-1">
